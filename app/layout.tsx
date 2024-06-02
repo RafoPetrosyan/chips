@@ -3,6 +3,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import { ThemeProvider } from '@mui/material/styles'
 import { Inter } from 'next/font/google'
 import StoreProvider from '@/app/stroreProvider'
+import Header from '@/app/components/Header'
 import theme from '../utils/theme'
 import './globals.css'
 
@@ -20,10 +21,13 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en">
-         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+         <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
                <StoreProvider>
-                  <body className={inter.className}>{children}</body>
+                  <body className={inter.className}>
+                     <Header />
+                     {children}
+                  </body>
                </StoreProvider>
             </ThemeProvider>
          </AppRouterCacheProvider>
