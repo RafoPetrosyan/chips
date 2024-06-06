@@ -1,10 +1,10 @@
 import React from 'react'
-import './styles.scss'
+import Home from '@/app/home/(component)'
 
 const HomePage = () => {
    return (
-      <div className='home-page'>
-         Home
+      <div className="home-page">
+         <Home />
       </div>
    )
 }

@@ -14,6 +14,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
+import useContainer from './hook'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 const pages = ['Products', 'Pricing', 'Blog']
@@ -59,15 +60,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 export default function Header() {
-   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
-   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
-
-   const isMenuOpen = Boolean(anchorEl)
-
-   const handleMenuClose = () => {
-      setAnchorEl(null)
-   }
+   const {
+      isMenuOpen,
+      anchorElUser,
+      anchorElNav,
+      anchorEl,
+      handleCloseUserMenu,
+      handleOpenUserMenu,
+      handleOpenNavMenu,
+      handleMenuClose,
+      handleCloseNavMenu,
+   } = useContainer()
 
    const menuId = 'primary-search-account-menu'
    const renderMenu = (
@@ -90,21 +93,6 @@ export default function Header() {
          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       </Menu>
    )
-
-   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorElUser(event.currentTarget)
-   }
-
-   const handleCloseUserMenu = () => {
-      setAnchorElUser(null)
-   }
-
-   const handleCloseNavMenu = () => {
-      setAnchorElNav(null)
-   }
-   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorElNav(event.currentTarget)
-   }
 
    return (
       <Box sx={{ flexGrow: 1 }}>
