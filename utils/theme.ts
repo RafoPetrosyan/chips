@@ -1,9 +1,9 @@
 'use client'
-import { Roboto } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import { createTheme } from '@mui/material/styles'
-import { green, purple } from '@mui/material/colors'
+import { green } from '@mui/material/colors'
 
-const roboto = Roboto({
+const poppins = Poppins({
    weight: ['300', '400', '500', '700'],
    subsets: ['latin'],
    display: 'swap',
@@ -11,7 +11,7 @@ const roboto = Roboto({
 
 const theme = createTheme({
    typography: {
-      fontFamily: roboto.style.fontFamily,
+      fontFamily: poppins.style.fontFamily,
    },
    palette: {
       primary: {
@@ -19,6 +19,15 @@ const theme = createTheme({
       },
       secondary: {
          main: green[500],
+      },
+   },
+   breakpoints: {
+      values: {
+         xs: 0,
+         sm: 600,
+         md: 900,
+         lg: 1200,
+         xl: 1536,
       },
    },
 })

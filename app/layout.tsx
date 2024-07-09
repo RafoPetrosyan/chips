@@ -1,13 +1,26 @@
+import React from 'react'
 import type { Metadata } from 'next'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import { ThemeProvider } from '@mui/material/styles'
-import { Inter } from 'next/font/google'
+import { Poppins, DM_Sans } from 'next/font/google'
 import StoreProvider from '@/app/stroreProvider'
 import Header from '@/app/components/Header'
 import theme from '../utils/theme'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins({
+   weight: ['300', '400', '500', '700', '800', '900'],
+   subsets: ['latin'],
+   display: 'swap',
+   variable: '--font-poppins',
+})
+
+const dmSans = DM_Sans({
+   weight: ['300', '400', '500', '700', '800', '900'],
+   subsets: ['latin'],
+   display: 'swap',
+   variable: '--font-dm-sans',
+})
 
 export const metadata: Metadata = {
    title: 'Create Next App',
@@ -24,7 +37,7 @@ export default function RootLayout({
          <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
                <StoreProvider>
-                  <body className={inter.className}>
+                  <body className={`${dmSans.variable} ${poppins.variable}`}>
                      <Header />
                      {children}
                   </body>
