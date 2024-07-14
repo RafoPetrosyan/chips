@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 interface ReturnType {
    isMenuOpen: boolean
@@ -16,6 +17,8 @@ function useContainer(): ReturnType {
    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+   const { data: session } = useSession()
+   console.log(session, 'session ')
 
    const handleMenuClose = () => {
       setAnchorEl(null)

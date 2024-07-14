@@ -5,6 +5,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import { Poppins, DM_Sans } from 'next/font/google'
 import StoreProvider from '@/app/stroreProvider'
 import Header from '@/app/components/Header'
+import SessionWrapper from '@/app/components/SessionWrapper'
 import theme from '../utils/theme'
 import './globals.css'
 
@@ -37,10 +38,12 @@ export default function RootLayout({
          <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
                <StoreProvider>
-                  <body className={`${dmSans.variable} ${poppins.variable}`}>
-                     <Header />
-                     {children}
-                  </body>
+                  <SessionWrapper>
+                     <body className={`${dmSans.variable} ${poppins.variable}`}>
+                        <Header />
+                        {children}
+                     </body>
+                  </SessionWrapper>
                </StoreProvider>
             </ThemeProvider>
          </AppRouterCacheProvider>
