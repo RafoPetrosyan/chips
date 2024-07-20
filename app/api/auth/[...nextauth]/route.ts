@@ -4,6 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { appendFormData, FormDataInput } from '@/utils/helpers'
 import axios from 'axios'
 
+// @ts-ignore
 const handler = NextAuth({
    providers: [
       GithubProvider({
@@ -19,19 +20,49 @@ const handler = NextAuth({
          async authorize(credentials) {
             const formDataInput: FormDataInput = {
                // @ts-ignore
-               username: credentials.username,
+               email: credentials.email,
                // @ts-ignore
                password: credentials.password,
             }
             const body = appendFormData(formDataInput)
-            const { data } = await axios.post('/your/endpoint', body)
-            if (data.ok && data) {
-               return data
+            try {
+               const { data } = await axios.post(
+                  `${process.env.NEXT_PUBLIC_API_BASE_URL}/login`,
+                  body,
+                  {
+                     headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                     },
+                  },
+               )
+               if (data.success && data) {
+                  return data.data
+               }
+            } catch (e: any) {
+               throw new Error(JSON.stringify(e.response?.data.errors))
             }
-            return null
          },
       }),
    ],
+   pages: {
+      signIn: '/auth/sign-in',
+   },
+   callbacks: {
+      async jwt({ token, user }) {
+         if (user) {
+            return { ...token, ...user }
+         }
+         return token
+      },
+      async session({ session, token }) {
+         session.user = token
+         return session
+      },
+   },
+   secret: process.env.NEXTAUTH_SECRET,
+   session: {
+      strategy: 'jwt',
+   },
 })
 
 export { handler as GET, handler as POST }

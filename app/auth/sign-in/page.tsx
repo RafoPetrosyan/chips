@@ -1,10 +1,12 @@
 'use client'
 
-import React, { useEffect, FC } from 'react'
+import React, { FC, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Container, Box, Avatar, Typography, TextField, Button, Grid, Link } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import { getProviders } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
+import _ from 'lodash'
 
 type Inputs = {
    email: string
@@ -12,23 +14,36 @@ type Inputs = {
 }
 
 const SignIn: FC = () => {
+   const { data: session } = useSession()
+   const router = useRouter()
    const {
       register,
       handleSubmit,
-      watch,
-      setValue,
       formState: { errors },
    } = useForm<Inputs>()
 
    const onSubmit: SubmitHandler<Inputs> = async (data) => {
-      const x = await getProviders()
-      console.log(x)
+      const response = await signIn('credentials', {
+         ...data,
+         redirect: false,
+      })
+
+      // @ts-ignore
+      if (response.error) {
+         // @ts-ignore
+         console.log(JSON.parse(response.error))
+         return
+      }
+
+      router.push('/')
+
+      console.log(response, 'response')
    }
 
-   useEffect(() => {
-      setValue('email', 'example@example.com')
-      setValue('password', 'password123')
-   }, [setValue])
+   // useEffect(() => {
+   //    if (_.isEmpty(session)) return
+   //    router.back()
+   // }, [session])
 
    return (
       <Container component="main" maxWidth="xs">
