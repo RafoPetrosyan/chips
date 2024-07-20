@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 interface ReturnType {
    isMenuOpen: boolean
@@ -35,6 +35,7 @@ function useContainer(): ReturnType {
    const handleCloseNavMenu = () => {
       setAnchorElNav(null)
    }
+
    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
       setAnchorElNav(event.currentTarget)
    }

@@ -1,16 +1,17 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, FC } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Container, Box, Avatar, Typography, TextField, Button, Grid, Link } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import { getProviders } from 'next-auth/react'
 
 type Inputs = {
    email: string
    password: string
 }
 
-const SignIn: React.FC = () => {
+const SignIn: FC = () => {
    const {
       register,
       handleSubmit,
@@ -19,7 +20,10 @@ const SignIn: React.FC = () => {
       formState: { errors },
    } = useForm<Inputs>()
 
-   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+      const x = await getProviders()
+      console.log(x)
+   }
 
    useEffect(() => {
       setValue('email', 'example@example.com')

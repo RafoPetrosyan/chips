@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 const httpClient = axios.create({
-   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
 })
 
 httpClient.interceptors.request.use(
