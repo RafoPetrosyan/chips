@@ -1,9 +1,12 @@
 import React from 'react'
 import { Container } from '@mui/material'
 import MainContent from './MainContent'
+import { getCurrentUser } from '@/libs/session'
 import './styles.scss'
 
-const Home = () => {
+const Home = async () => {
+   // const session = await getCurrentUser()
+   // console.log(session, 444444)
    return (
       <div className="home-page">
          <Container maxWidth={'lg'} className="container-style">

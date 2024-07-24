@@ -17,8 +17,6 @@ function useContainer(): ReturnType {
    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
-   const { data: session } = useSession()
-   console.log(session, 'session ')
 
    const handleMenuClose = () => {
       setAnchorEl(null)
